@@ -11,24 +11,25 @@ if (!process.env.GITHUB_ACTIONS) {
 	}
 }
 const core = require("@actions/core");
-const {downloadAtom, addToPath} = require("./setup-atom.js");
+const {downloadAtom, addToPath, printVersions} = require("./setup-atom.js");
 
 async function run() {
 	try {
 		const channel = (process.env.GITHUB_ACTIONS && core.getInput("channel").toLowerCase()) || process.argv[2] || "stable";
 		const packageManager = (process.env.GITHUB_ACTIONS && core.getInput("packageManager").toLowerCase()) || process.argv[3] || "";
 		const folder = path.resolve(process.env.RUNNER_TEMP, process.argv[3] || "./atom");
-		console.log("channel:", channel);
-		console.log("folder:", folder);
+		core.info(`channel: ${channel}`);
+		core.info(`folder: ${folder}`);
 
 		await downloadAtom(channel, folder, packageManager);
-		await addToPath(channel, folder);
+		const apmPath = await addToPath(channel, folder);
+		await printVersions(apmPath);
 
 	} catch (error) {
 		if (process.env.GITHUB_ACTIONS) {
 			core.setFailed(error.message);
 		} else {
-			console.error(error);
+			core.error(error);
 			process.exit(1);
 		}
 	}

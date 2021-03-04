@@ -1,6 +1,6 @@
 {
-  "name": "setup-atom",
-  "version": "1.1.12",
+  "name": "@atom-ide-community/setup-atom",
+  "version": "1.2.0",
   "description": "Setup Atom and APM",
   "main": "./src/setup-atom.js",
   "scripts": {
@@ -14,7 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/UziTech/action-setup-atom.git"
+    "url": "git+https://github.com/atom-community/action-setup-atom.git"
   },
   "keywords": [
     "GitHub",
@@ -24,29 +24,19 @@
     "atom",
     "apm"
   ],
-  "author": "Tony Brix <tony@brix.ninja>",
+  "author": "Tony Brix <tony@brix.ninja>, Amin Yahyaabadi <aminyahyaabadi74@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/UziTech/action-setup-atom/issues"
+    "url": "https://github.com/atom-community/action-setup-atom/issues"
   },
-  "homepage": "https://github.com/UziTech/action-setup-atom#readme",
+  "homepage": "https://github.com/atom-community/action-setup-atom#readme",
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/exec": "^1.0.4",
     "@actions/tool-cache": "^1.6.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
-    "@semantic-release/changelog": "^5.0.1",
-    "@semantic-release/commit-analyzer": "^8.0.1",
-    "@semantic-release/git": "^9.0.0",
-    "@semantic-release/github": "^7.2.0",
-    "@semantic-release/npm": "^7.0.9",
-    "@semantic-release/release-notes-generator": "^9.0.1",
-    "@zeit/ncc": "^0.22.3",
-    "eslint": "^7.17.0",
-    "husky": "^4.3.6",
-    "semantic-release": "^17.3.1"
+    "@vercel/ncc": "^0.27.0",
+    "eslint": "^7.21.0"
   }
 }
