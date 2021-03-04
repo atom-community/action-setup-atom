@@ -1,5 +1,5 @@
 {
-  "name": "setup-atom",
+  "name": "@atom-ide-community/setup-atom",
   "version": "1.1.12",
   "description": "Setup Atom and APM",
   "main": "./src/setup-atom.js",
@@ -14,7 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/UziTech/action-setup-atom.git"
+    "url": "git+https://github.com/atom-community/action-setup-atom.git"
   },
   "keywords": [
     "GitHub",
@@ -24,12 +24,12 @@
     "atom",
     "apm"
   ],
-  "author": "Tony Brix <tony@brix.ninja>",
+  "author": "Tony Brix <tony@brix.ninja>, Amin Yahyaabadi <aminyahyaabadi74@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/UziTech/action-setup-atom/issues"
+    "url": "https://github.com/atom-community/action-setup-atom/issues"
   },
-  "homepage": "https://github.com/UziTech/action-setup-atom#readme",
+  "homepage": "https://github.com/atom-community/action-setup-atom#readme",
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/exec": "^1.0.4",
