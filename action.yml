@@ -1,4 +1,4 @@
-name: 'Setup Atom'
+name: 'Setup Atom and APM'
 description: 'Setup Atom and APM'
 inputs:
   channel:
