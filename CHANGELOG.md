@@ -1,3 +1,10 @@
+## [1.2.0](https://github.com/atom-community/action-setup-atom/compare/v1.1.12...v1.2.0) (2021-03-03)
+
+New Features
+- print the installed versions
+- use core.info/error instead of console.log/error
+
+
 ## [1.1.12](https://github.com/UziTech/action-setup-atom/compare/v1.1.11...v1.1.12) (2020-11-14)
 
 
