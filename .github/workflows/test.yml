@@ -60,6 +60,9 @@ jobs:
       - name: Commit lint ✨
         uses: wagoid/commitlint-github-action@v2
 
+      - name: Check if dist is committed
+        run: git diff --staged --quiet -- dist || (echo "Please don't commit the dist folder" && exit 1)
+
       - name: Install Dependencies
         run: npm install
       - name: Lint ✨
