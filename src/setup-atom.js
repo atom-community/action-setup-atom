@@ -43,7 +43,9 @@ async function downloadAtom(channel, folder) {
 	}
 }
 
+
 async function addToPath(channel, folder) {
+	let apmPath;
 	switch (process.platform) {
 		case "win32": {
 			let atomfolder = "Atom";
@@ -71,7 +73,7 @@ async function addToPath(channel, folder) {
 			atomfolder += ".app";
 			const atomPath = path.join(folder, atomfolder, "Contents", "Resources", "app");
 			await exec("ln", ["-s", path.join(atomPath, "atom.sh"), path.join(atomPath, "atom")]);
-			const apmPath = path.join(atomPath, "apm", "bin");
+			apmPath = path.join(atomPath, "apm", "bin");
 			if (process.env.GITHUB_ACTIONS) {
 				core.addPath(atomPath);
 				core.addPath(apmPath);
@@ -92,7 +94,7 @@ async function addToPath(channel, folder) {
 				atomfolder += `-${channel}`;
 			}
 			const atomPath = path.join(folder, "usr", "share", atomfolder);
-			const apmPath = path.join(atomPath, "resources", "app", "apm", "bin");
+			apmPath = path.join(atomPath, "resources", "app", "apm", "bin");
 			if (process.env.GITHUB_ACTIONS) {
 				await core.exportVariable("DISPLAY", display);
 				core.addPath(atomPath);
@@ -109,9 +111,19 @@ async function addToPath(channel, folder) {
 			break;
 		}
 	}
+	return apmPath;
+}
+
+async function printVersions(apmPath) {
+	try {
+		core.info((await execAsync(`${apmPath !== undefined ? path.join(apmPath, "apm") : "apm"} -v`)).stdout);
+	} catch(e) {
+		// ignore the error
+	}
 }
 
 module.exports = {
 	downloadAtom,
 	addToPath,
+	printVersions,
 };
