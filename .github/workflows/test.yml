@@ -19,7 +19,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
       - name: Install Dependencies
-        run: npm ci
+        run: npm install
       - name: Build Action
         if: matrix.source == 'action'
         run: npm run build
@@ -49,11 +49,22 @@ jobs:
   Lint:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Commit lint ✨
+        uses: wagoid/commitlint-github-action@v2
+
+      - name: Check if dist is committed
+        run: git diff --staged --quiet -- dist || (echo "Please don't commit the dist folder" && exit 1)
+
       - name: Install Dependencies
-        run: npm ci
+        run: npm install
       - name: Lint ✨
         run: npm run lint
 
@@ -65,7 +76,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
       - name: Install Dependencies
-        run: npm ci
+        run: npm install
       - name: Build 🧱
         run: |
           npm run build
@@ -80,6 +91,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        with:
+          extends: |
+            @semantic-release/commit-analyzer
+            @semantic-release/release-notes-generator
+            @semantic-release/changelog
+            @semantic-release/npm
+            @semantic-release/github
+            @semantic-release/git
+
       - name: Push to Version Branch
         if: steps.semantic_release.outputs.new_release_published == 'true'
         uses: ad-m/github-push-action@master

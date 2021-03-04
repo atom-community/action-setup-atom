@@ -121,7 +121,7 @@ environment:
 
 install:
   - ps: Install-Product node lts
-  - npm ci
+  - npm install
 
 before_build:
   - npx setup-atom %ATOM_CHANNEL%
