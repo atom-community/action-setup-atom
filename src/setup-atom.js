@@ -26,31 +26,40 @@ async function downloadAtom(channel, folder, packageManager) {
 	}
 	switch (process.platform) {
 		case "win32": {
+			if (!["stable", "beta", "nightly"].includes(channel)) {
+				errorSetup("atom.io/download", channel);
+			}
 			const downloadFile = await tc.downloadTool(`https://atom.io/download/windows_zip?channel=${channel}`);
 			await tc.extractZip(downloadFile, folder);
 			break;
 		}
 		case "darwin": {
+			if (!["stable", "beta", "nightly"].includes(channel)) {
+				errorSetup("atom.io/download", channel);
+			}
 			const downloadFile = await tc.downloadTool(`https://atom.io/download/mac?channel=${channel}`);
 			await tc.extractZip(downloadFile, folder);
 			break;
 		}
 		default: {
 			if (!packageManager) {
+				if (!["stable", "beta", "nightly"].includes(channel)) {
+					errorSetup("atom.io/download", channel);
+				}
 				const downloadFile = await tc.downloadTool(`https://atom.io/download/deb?channel=${channel}`);
 				await exec("dpkg-deb", ["-x", downloadFile, folder]);
-			} else if (packageManager === "snap") {
+			} else if (packageManager === "snap" && ["stable", "edge"].includes(channel)) {
 				await execAsync(`sudo snap install atom --${channel} --classic`);
 			} else {
-				errorPackageManager(packageManager);
+				errorSetup(packageManager, channel);
 			}
 			break;
 		}
 	}
 }
 
-function errorPackageManager(packageManager) {
-	core.error(`packageManager ${packageManager} is not supported on ${process.platform}`);
+function errorSetup(packageManager, channel) {
+	core.error(`Setting up Atom channel ${channel} via ${packageManager || "atom.io/download"} is not supported on ${process.platform}`);
 }
 
 async function addToPath(channel, folder) {
