@@ -16,11 +16,12 @@ const {downloadAtom, addToPath, printVersions} = require("./setup-atom.js");
 async function run() {
 	try {
 		const channel = (process.env.GITHUB_ACTIONS && core.getInput("channel").toLowerCase()) || process.argv[2] || "stable";
+		const packageManager = (process.env.GITHUB_ACTIONS && core.getInput("packageManager").toLowerCase()) || process.argv[3] || "";
 		const folder = path.resolve(process.env.RUNNER_TEMP, process.argv[3] || "./atom");
 		core.info(`channel: ${channel}`);
 		core.info(`folder: ${folder}`);
 
-		await downloadAtom(channel, folder);
+		await downloadAtom(channel, folder, packageManager);
 		const apmPath = await addToPath(channel, folder);
 		await printVersions(apmPath);
 
