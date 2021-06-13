@@ -31,9 +31,9 @@
   },
   "homepage": "https://github.com/atom-community/action-setup-atom#readme",
   "dependencies": {
-    "@actions/core": "^1.2.6",
-    "@actions/exec": "^1.0.4",
-    "@actions/tool-cache": "^1.6.1"
+    "@actions/core": "^1.4.0",
+    "@actions/exec": "^1.1.0",
+    "@actions/tool-cache": "^1.7.1"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.27.0",
